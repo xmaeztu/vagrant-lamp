@@ -42,6 +42,11 @@ link "/usr/local/bin/drush" do
   to "#{node[:drupal][:drush][:dir]}/drush"
 end
 
+#Install the Console table. This is required for drush to work
+execute "install-console-table" do
+  command "pear install Console_table"
+end
+
 #execute "install-drush-make" do
 #  cwd node[:drupal][:drush][:dir]
 #  command "/usr/local/bin/drush dl drush_make"
