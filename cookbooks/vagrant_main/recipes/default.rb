@@ -17,33 +17,33 @@ bash "debconf_for_phpmyadmin" do
 end
 package "phpmyadmin"
 
-s = "dev-site"
+s = "xabi.quality-bmj-com.internal.bmjgroup.com"
 site = {
   :name => s, 
-  :host => "www.#{s}.com", 
-  :aliases => ["#{s}.com", "dev.#{s}-static.com"]
+  :host => s, 
+  #:aliases => ["#{s}.com", "dev.#{s}-static.com"]
 }
 
 # Configure the development site
-web_app site[:name] do
-  template "sites.conf.erb"
-  server_name site[:host]
-  server_aliases site[:aliases]
-  docroot "/vagrant/public/"
-end  
+#web_app site[:name] do
+#  template "sites.conf.erb"
+#  server_name site[:host]
+#  server_aliases site[:aliases]
+#  docroot "/vagrant/public/"
+#end  
 
 # Add site info in /etc/hosts
 bash "info_in_etc_hosts" do
   code "echo 127.0.0.1 #{site[:host]} #{site[:aliases]} >> /etc/hosts"
 end
 
-# Retrieve webgrind for xdebug trace analysis
-subversion "Webgrind" do
-  repository "http://webgrind.googlecode.com/svn/trunk/"
-  revision "HEAD"
-  destination "/var/www/webgrind"
-  action :sync
-end
+## Retrieve webgrind for xdebug trace analysis
+#subversion "Webgrind" do
+#  repository "http://webgrind.googlecode.com/svn/trunk/"
+#  revision "HEAD"
+#  destination "/var/www/webgrind"
+#  action :sync
+#end
 
 # Add an admin user to mysql
 execute "add-admin-user" do
