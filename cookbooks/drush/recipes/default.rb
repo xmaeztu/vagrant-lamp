@@ -45,6 +45,7 @@ end
 #Install the Console table. This is required for drush to work
 execute "install-console-table" do
   command "pear install Console_table"
+  not_if "pear info Console_table | grep Version"
 end
 
 #execute "install-drush-make" do
