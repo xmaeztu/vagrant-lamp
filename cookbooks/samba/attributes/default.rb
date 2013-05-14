@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-default["samba"]["workgroup"] = "SAMBA"
+default["samba"]["workgroup"] = "WORKGROUP"
 default["samba"]["interfaces"] = "lo 127.0.0.1"
 default["samba"]["hosts_allow"] = "127.0.0.0/8"
 default["samba"]["bind_interfaces_only"] = "no"
@@ -32,7 +32,7 @@ default["samba"]["folder"]["name"] = "www"
 default["samba"]["folder"]["comment"] = "The www folder"
 default["samba"]["folder"]["path"] = "/var/www"
 default["samba"]["folder"]["public"] =  "yes"
-default["samba"]["folder"]["writeable"] =  "yes"
+default["samba"]["folder"]["writable"] =  "yes"
 default["samba"]["folder"]["create mask"] = "0777"
 default["samba"]["folder"]["directory mask"] = "0777"
 

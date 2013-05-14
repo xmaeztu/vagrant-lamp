@@ -37,7 +37,15 @@
 # /usr/share/doc/samba-doc/htmldocs/Samba3-HOWTO/ServerType.html
 # in the samba-doc package for details.
 #   security = user
-security = <%= node["samba"]["security"] %>
+  security = <%= node["samba"]["security"] %>
+  encrypt passwords = true
+  passdb backend = <%= node["samba"]["passdb_backend"] %>
+  obey pam restrictions = yes
+  unix password sync = yes
+  password program = /usr/bin/passwd %u
+  
+  
+
 
 #======================= Share Definitions =======================
 
