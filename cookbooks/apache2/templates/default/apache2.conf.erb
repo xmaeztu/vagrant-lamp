@@ -64,7 +64,6 @@ KeepAliveTimeout <%= node[:apache][:keepalivetimeout] %>
     StartServers          <%= node[:apache][:prefork][:startservers] %>
     MinSpareServers       <%= node[:apache][:prefork][:minspareservers] %>
     MaxSpareServers       <%= node[:apache][:prefork][:maxspareservers] %>
-    ServerLimit           <%= node[:apache][:prefork][:serverlimit] %>
     MaxClients            <%= node[:apache][:prefork][:maxclients] %>
     MaxRequestsPerChild   <%= node[:apache][:prefork][:maxrequestsperchild] %>
 </IfModule>
@@ -78,11 +77,29 @@ KeepAliveTimeout <%= node[:apache][:keepalivetimeout] %>
 # MaxRequestsPerChild: maximum number of requests a server process serves
 <IfModule mpm_worker_module>
     StartServers          <%= node[:apache][:worker][:startservers] %>
-    MaxClients            <%= node[:apache][:worker][:maxclients] %>
     MinSpareThreads       <%= node[:apache][:worker][:minsparethreads] %>
     MaxSpareThreads       <%= node[:apache][:worker][:maxsparethreads] %>
+    ThreadLimit           <%= node[:apache][:worker][:threadlimit] %>
     ThreadsPerChild       <%= node[:apache][:worker][:threadsperchild] %>
+    MaxClients            <%= node[:apache][:worker][:maxclients] %>
     MaxRequestsPerChild   <%= node[:apache][:worker][:maxrequestsperchild] %>
+</IfModule>
+
+# event MPM
+# StartServers: initial number of server processes to start
+# MaxClients: maximum number of simultaneous client connections
+# MinSpareThreads: minimum number of worker threads which are kept spare
+# MaxSpareThreads: maximum number of worker threads which are kept spare
+# ThreadsPerChild: constant number of worker threads in each server process
+# MaxRequestsPerChild: maximum number of requests a server process serves
+<IfModule mpm_event_module>
+    StartServers          <%= node[:apache][:event][:startservers] %>
+    MaxClients            <%= node[:apache][:event][:maxclients] %>
+    MinSpareThreads       <%= node[:apache][:event][:minsparethreads] %>
+    MaxSpareThreads       <%= node[:apache][:event][:maxsparethreads] %>
+    ThreadLimit           <%= node[:apache][:event][:threadlimit] %>
+    ThreadsPerChild       <%= node[:apache][:event][:threadsperchild] %>
+    MaxRequestsPerChild   <%= node[:apache][:event][:maxrequestsperchild] %>0
 </IfModule>
 
 User <%= node[:apache][:user] %>
