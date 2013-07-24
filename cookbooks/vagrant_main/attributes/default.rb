@@ -1,0 +1,1 @@
+default[:vagrant_main][:drupal_version] = "7"
