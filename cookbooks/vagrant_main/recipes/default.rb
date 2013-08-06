@@ -20,26 +20,24 @@ execute "install_drupal_root" do
   not_if "find /vagrant -maxdepth 1 | grep /vagrant/drupal#{node[:vagrant_main][:drupal_version]}"
 end
 
-#s = node[:vagrant_main][:site_name]
-#site = {
-#  :name => s, 
-#  :host => s, 
-#  #:aliases => ["#{s}.com", "dev.#{s}-static.com"]
-#}
-#
-## Configure the development site
-#web_app site[:name] do
-#  template "sites.conf.erb"
-#  server_name site[:host]
-#  server_aliases site[:aliases]
-#  docroot "/vagrant/#{node[:vagrant_main][:site_alias]}"
-#end  
-#
-## Add site info in /etc/hosts
-#bash "info_in_etc_hosts" do
-#  code "echo 127.0.0.1 #{site[:host]} #{site[:aliases]} >> /etc/hosts"
-#end
-#
+site = {
+  :name => node[:vagrant_main][:site_name], 
+  :host => node[:vagrant_main][:site_name], 
+  #:aliases => ["#{s}.com", "dev.#{s}-static.com"]
+}
+
+bash "info_in_etc_hosts" do
+  code "echo 127.0.0.1 #{site[:host]} >> /etc/hosts"
+end
+
+# Configure the development site
+web_app site[:name] do
+  template "sites.conf.erb"
+  server_name site[:host]
+  #server_aliases site[:aliases]
+  docroot "/vagrant/#{node[:vagrant_main][:site_alias]}"
+end  
+
 #
 ## Add an admin user to mysql
 #execute "add-admin-user" do
