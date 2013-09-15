@@ -1,6 +1,6 @@
 <VirtualHost *:80>
-  ServerName <%= @params[:server_name] %>
-  ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end %>
+  erverName <%= @params[:server_name] %>
+  ServerAlias <%= @params[:server_alias] %>
   DocumentRoot <%= @params[:docroot] %>
   RewriteEngine On
   
