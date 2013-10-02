@@ -18,28 +18,29 @@
 #
 
 include_recipe %w{php::php5 php::module_mysql}
+package "unzip"
 
-remote_file "#{node[:drupal][:src]}/drush-All-versions-#{node[:drupal][:drush][:version]}.tar.gz" do
-  checksum node[:drupal][:drush][:checksum]
-  source "http://ftp.drupal.org/files/projects/drush-All-versions-#{node[:drupal][:drush][:version]}.tar.gz"
+remote_file "#{node[:drush][:src]}/master.zip" do
+  checksum node[:drush][:checksum]
+  source node[:drush][:url]
   mode "0644"
 end
 
-directory "#{node[:drupal][:drush][:dir]}" do
+directory "#{node[:drush][:dir]}" do
   owner "root"
   group "root"
   mode "0755"
   action :create
 end
 
-execute "untar-drush" do
-  cwd node[:drupal][:drush][:dir]
-  command "tar --strip-components 1 -xzf #{node[:drupal][:src]}/drush-All-versions-#{node[:drupal][:drush][:version]}.tar.gz"
-  not_if "/usr/local/bin/drush status drush-version --pipe | grep #{node[:drupal][:drush][:version]}"
+execute "unzip-drush" do
+  cwd node[:drush][:dir]
+  command "unzip  #{node[:drush][:src]}/master.zip"
+  not_if "/usr/local/bin/drush status drush-version --pipe | grep #{node[:drush][:version]}"
 end
 
 link "/usr/local/bin/drush" do
-  to "#{node[:drupal][:drush][:dir]}/drush"
+  to "#{node[:drush][:dir]}/drush-master/drush"
 end
 
 #Install the Console table. This is required for drush to work

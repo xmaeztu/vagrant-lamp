@@ -17,21 +17,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-default[:drupal][:version] = "7.0"
-default[:drupal][:checksum] = "62e4146b2a2208d0772cef6578205b369f361b2079bf3fa9408e92f5419902e8"
-default[:drupal][:dir] = "/var/www/drupal"
-default[:drupal][:db][:database] = "drupal"
-default[:drupal][:db][:user] = "drupal"
-
 ::Chef::Node.send(:include, Opscode::OpenSSL::Password)
 
 set_unless[:drupal][:db][:password] = secure_password
-default[:drupal][:src] = Chef::Config[:file_cache_path]
+default[:drush][:src] = Chef::Config[:file_cache_path]
+default[:drush][:version] = "7.0-dev"
 
-default[:drupal][:drush][:version] = "4.x-dev"
-default[:drupal][:drush][:checksum] = "86bf384f5d70793a6f41d0e4a0d25fa1dceaccb17c9f7db1c5bf0397be6ab64a"
-default[:drupal][:drush][:dir] = "/usr/local/drush"
+default[:drush][:url] = "https://github.com/drush-ops/drush/archive/master.zip"
+default[:drush][:checksum] = "86bf384f5d70793a6f41d0e4a0d25fa1dceaccb17c9f7db1c5bf0397be6ab64a"
+default[:drush][:dir] = "/usr/local/drush"
 
 default[:drupal][:modules] = ["views", "webform"]
 
